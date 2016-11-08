@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Coins</div>
+				<div class="panel-body">
+					<div class="col-lg-6 col-md-6" data-ng-repeat="coin in view.coins">
+						<button type="button" class="btn btn-success btn-block coin" title="{{ coin.title }}"
+								data-ng-click="onChangeCoinEventClick(coin)">
+							<div class="coin-header">
+								<img data-ng-src="{{ coin.icon_url }}" alt="{{ coin.title }}"/>
+								<span>{{ coin.title }}</span>
+							</div>
+							<hr/>
+							<div>Code: {{ coin.code }}</div>
+							<div data-ng-if="coin.desc">Description: {{ coin.desc }}</div>
+						</button>
+					</div>
+					<div data-ng-if="!view.coins.length">Sorry, coins not found.</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-4">
+			<section data-app-template="pool-news"></section>
+		</div>
+
+	</div>
+</div>

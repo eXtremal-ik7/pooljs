@@ -1,0 +1,14 @@
+<form class="dialog message" data-popup-controller="MessageCtrl">
+    <header>
+        <h1 data-ng-switch="type">
+            <span data-ng-switch-when="error">Error</span>
+            <span data-ng-switch-default>Message</span>
+        </h1>
+    </header>
+    <article class="content">
+        <pre data-ng-class="type">{{ message }}</pre>
+    </article>
+    <footer>
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">ОК</button>
+    </footer>
+</form>

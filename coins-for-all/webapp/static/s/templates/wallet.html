@@ -1,0 +1,185 @@
+<div class="container">
+
+    <menu data-app-template="menu-panel-coins"></menu>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Settings</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="form.settings">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Address:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ view.user }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="minimalPayout" class="col-sm-2 control-label">Minimal Payout:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="minimalPayout" placeholder="Amount"
+                                           min="0.001" max="1000" step="0.001" data-ng-model="settings.minimalPayout" required>
+                                    <div class="input-group-addon">{{ view.code }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success"
+                                        data-ng-disabled="form.settings.$pristine || form.settings.$invalid"
+                                        data-ng-click="saveSettings(settings)">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Account</div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Balance</th>
+                        <th>Requested</th>
+                        <th>Paid</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Email</th>
+                        <th>Minimal Payout</th>
+                        <th class="text-center">Payout</th>
+                    </tr>
+                    </thead>
+                    <tfoot data-ng-if="!info">
+                    <tr><td colspan="7">Account {{ code.user }} not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="info">
+                    <tr>
+                        <td>{{ info.balance | satoshi }} {{ view.code }}</td>
+                        <td>{{ info.requested | satoshi }} {{ view.code }}</td>
+                        <td>{{ info.paid | satoshi }} {{ view.code }}</td>
+                        <td class="text-center">{{ info.name || '&mdash;' }}</td>
+                        <td class="text-center">{{ info.email || '&mdash;' }}</td>
+                        <td>{{ info.minimalPayout | satoshi }} {{ view.code }}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-xs"
+                                    data-ng-disabled="!info.balance" data-ng-click="payout(info.balance)">Request Payout</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Stats</div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Workers</th>
+                            <th>CPUs</th>
+                            <th>GPUs</th>
+                            <th>Latency </th>
+                            <th>Power</th>
+                        </tr>
+                    </thead>
+                    <tfoot data-ng-if="!stats">
+                        <tr><td colspan="5">Stats not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="stats">
+                        <tr>
+                            <td>{{ stats.workers }}</td>
+                            <td>{{ stats.cpus }}</td>
+                            <td>{{ stats.gpus }}</td>
+                            <td>{{ stats.averageLatency }} ms</td>
+                            <td>{{ stats.power | power:view.coin.power }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Workers</div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Units</th>
+                            <th>Latency</th>
+                            <th>Temp</th>
+                            <th>Power</th>
+                        </tr>
+                    </thead>
+                    <tfoot data-ng-if="!workers.length">
+                        <tr><td colspan="6">Workers not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="workers.length">
+                        <tr data-ng-repeat="worker in workers">
+                            <td>{{ worker.name }}</td>
+                            <td>{{ worker.type }}</td>
+                            <td>{{ worker.units }}</td>
+                            <td>{{ worker.latency }} ms</td>
+                            <td>{{ worker.temp }} C&deg;</td>
+                            <td>{{ worker.power | power:view.coin.power }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Payments</div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Transaction</th>
+                            <th>Time</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tfoot data-ng-if="!payments.length">
+                        <tr><td colspan="3">Payments not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="payments.length">
+                        <tr data-ng-repeat="pay in payments">
+                            <td><a data-ng-href="{{ view.coin.transaction_url | url:pay }}" target="_blank">{{ pay.txid }}</a></td>
+                            <td>{{ pay.time | unixDate }}</td>
+                            <td>{{ pay.value | satoshi }} {{ view.code }}</td>
+                        </tr>
+                        <tr class="live-shower" data-ng-click="showMorePayments()" data-ng-if="!((payments.length / limit) % 1)">
+                            <td colspan="3" class="text-center">
+                                <span class="glyphicon glyphicon-chevron-down"></span> Show more payments <span class="glyphicon glyphicon-chevron-down"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your {{ view.coin.power.rate }}</div>
+                <div class="panel-body">
+                    <div>Coming soon...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CoinsForAll</title>
+	<link rel="stylesheet" href="static/s/app.css">
+	<script src="static/s/angular.js"></script>
+	<script src="static/s/angular-route.js"></script>
+	<script src="static/s/boot.js"></script>
+	<script src="static/s/pool.js"></script>
+</head>
+
+<body data-ng-controller="MainCtrl">
+
+	<header class="container-navbar">
+		<div class="navbar navbar-inverse gradient" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#!/">CoinsForAll</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section class="container" data-ng-class="[view.name, view.code.toLowerCase()]" data-ng-view>
+	</section>
+
+	<footer class="footer">
+		<div class="container">
+			<p class="copyright">2016 CoinsForAll.io <a href="mailto:admin@coinsforall.io">admin@coinsforall.io</a></p>
+		</div>
+	</footer>
+
+	<footer class="popup" data-popup-container="dialog">
+	</footer>
+
+	<footer class="message" data-app-message>
+	</footer>
+</body>
+</html>

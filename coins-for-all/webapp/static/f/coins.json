@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Primecoin",
+    "code": "XPM",
+    "desc": "description",
+    "icon_url": "static/i/primecoin.png",
+    "block_url": "https://bchain.info/XPM/block/:hash",
+    "transaction_url": "https://bchain.info/XPM/tx/:txid",
+    "power": {
+      "type": "CPD",
+      "name": "chains/day",
+      "rate": "CPD"
+    }
+  },
+  {
+    "title": "Ethereum Classic",
+    "code": "ETC",
+    "desc": "description",
+    "icon_url": "static/i/ethereum.png",
+    "block_url": "https://bchain.info/ETC/block/:hash",
+    "transaction_url": "https://bchain.info/ETC/tx/:txid",
+    "power": {
+      "type": "MHS",
+      "name": "Mh/s",
+      "rate": "hashrate"
+    }
+  },
+  {
+    "title": "Z-Cash",
+    "code": "ZCASH",
+    "desc": "description",
+    "icon_url": "static/i/zcash.png",
+    "block_url": "https://explorer.zcha.in/blocks/:hash",
+    "transaction_url": "https://explorer.zcha.in/transactions/:txid",
+    "power": {
+      "type": "SOLS",
+      "name": "sols/s",
+      "rate": "sols rate"
+    }
+  }
+]

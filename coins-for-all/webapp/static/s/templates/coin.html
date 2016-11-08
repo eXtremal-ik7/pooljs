@@ -1,0 +1,188 @@
+<div class="container">
+
+    <menu data-app-template="menu-panel-coins"></menu>
+
+	<div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your {{ view.code }} address</div>
+                <div class="panel-body">
+                    <form class="form-group wallet" name="form.wallet">
+                        <div class="input-group">
+                            <input type="text" name="address" class="form-control" data-ng-model="wallet.address" placeholder="Worker name" required/>
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-primary btn-sm" value="OK"
+                                       data-ng-disabled="form.wallet.$invalid" data-ng-click="account(wallet.address)"/>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary panel-coin">
+                <div class="panel-heading">{{ view.coin.title }} {{ view.code }}</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal" data-ng-if="stat.clients > 10">
+                        <dt>Clients:</dt>
+                        <dd>{{ stat.clients }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal" data-ng-if="stat.workers">
+                        <dt>Workers:</dt>
+                        <dd>{{ stat.workers }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal" data-ng-if="stat.averageLatency">
+                        <dt>Latency:</dt>
+                        <dd>{{ stat.averageLatency }} ms</dd>
+                    </dl>
+                    <dl class="dl-horizontal" data-ng-if="stat.power">
+                        <dt>Power:</dt>
+                        <dd>{{ stat.power | power:view.coin.power }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal" data-ng-if="stat.cpus">
+                        <dt>CPUs:</dt>
+                        <dd>{{ stat.cpus }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal" data-ng-if="stat.gpus">
+                        <dt>GPUs:</dt>
+                        <dd>{{ stat.gpus }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Difficulty:</dt>
+                        <dd>{{ stat.difficulty || '?' }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="panel panel-primary" data-ng-if="view.coin.power.type == 'CPD'">
+                <div class="panel-heading">24h Share Count</div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Length</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tfoot data-ng-if="!shareCount.length">
+                    <tr><td colspan="2">Share Count not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="shareCount.length">
+                    <tr data-ng-repeat="sc in shareCount">
+                        <td>{{ sc.len }}</td>
+                        <td>{{ sc.count }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Pool {{ view.coin.power.rate }}</div>
+                <div class="panel-body">
+                    <div>Coming soon...</div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Current {{ view.code }} price</div>
+                <div class="panel-body">
+                    <div>Coming soon...</div>
+<!--                        <p>
+                            <strong>{{ view.code }}/CNY:</strong>
+                            0.44
+                        </p>
+                        <p>
+                            <strong>{{ view.code }}/BTC:</strong>
+                            0.000107
+                        </p>
+                        <p>
+                            <strong>{{ view.code }}/USD:</strong>
+                            0.066
+                        </p>-->
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ view.code }} mining calculator</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="form.calc">
+                        <div class="form-group">
+                            <label for="calc_rate" class="col-sm-3 control-label">Your {{ view.coin.power.rate }}:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="calc_rate" placeholder="Your {{ view.coin.power.rate }}"
+                                       data-ng-model="calc.rate" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calc_diff" class="col-sm-3 control-label">Difficulty:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="calc_diff" placeholder="Difficulty"
+                                       data-ng-model="calc.diff" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="calc.fee"/> Include pool fee (4%)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="button" class="btn btn-success"
+                                        data-ng-disabled="form.calc.$invalid"
+                                        data-ng-click="calculate()">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div data-ng-include="getTemplateUrl('description')"></div>
+            <div data-ng-include="getTemplateUrl('mining')"></div>
+            <div data-ng-include="getTemplateUrl('servers')"></div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Last Blocks found by Pool</div>
+                <table class="table table-hover last-blocks-found">
+                    <thead>
+                    <tr>
+                        <th>Height</th>
+                        <th>Hash</th>
+                        <th class="text-center">Time</th>
+                        <th>Confirmations</th>
+                        <th>Generated Coins</th>
+                        <th>Found by</th>
+                    </tr>
+                    </thead>
+                    <tfoot data-ng-if="!blocks.length">
+                        <tr><td colspan="6">Blocks not found.</td></tr>
+                    </tfoot>
+                    <tbody data-ng-if="blocks.length">
+                        <tr data-ng-repeat="block in blocks" data-ng-class="{ danger: block.confirmations == -1 }">
+                            <td><a data-ng-href="{{ view.coin.block_url | url:block }}" target="_blank">{{ block.height }}</a></td>
+                            <td class="hash" title="{{ block.hash }}">{{ block.hash }}</td>
+                            <td class="text-center">{{ block.time | unixDate }}</td>
+                            <td>{{ block.confirmations }}</td>
+                            <td>{{ block.generatedCoins | satoshi }} {{ view.code }}</td>
+                            <td class="foundBy" title="{{ block.foundBy }}">{{ block.foundBy }}</td>
+                        </tr>
+                        <tr class="live-shower" data-ng-click="showMoreBlocks()" data-ng-if="!((blocks.length / limit) % 1)">
+                            <td colspan="6" class="text-center">
+                                <span class="glyphicon glyphicon-chevron-down"></span> Show more blocks <span class="glyphicon glyphicon-chevron-down"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

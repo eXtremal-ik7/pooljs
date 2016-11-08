@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="panel panel-primary panel-menu">
+            <div class="panel-body">
+                <div class="coin-menu-logo" data-ng-repeat="coin in view.coins">
+                    <img data-ng-class="{ active: view.code == coin.code }"
+                         data-ng-src="{{ coin.icon_url }}"
+                         data-ng-click="onChangeCoinEventClick(coin)"
+                         alt="{{ coin.title }}" title="{{ coin.title }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

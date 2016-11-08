@@ -1,0 +1,56 @@
+.coin {
+  .panel-coin {
+    dl {
+      margin-bottom: 10px;
+      dt {
+        width: 80px;
+        text-align: left;
+      }
+      dd {
+        margin-left: 80px;
+      }
+    }
+  }
+
+  .wallet {
+    .btn {
+      padding: 7px 10px;
+    }
+  }
+
+  .last-blocks-found {
+    font-size: @font-size-small;
+    td {
+      white-space: nowrap;
+    }
+    @media (min-width: @screen-sm-min) {
+      td {
+        &.hash, &.foundBy {
+          .trunc(100px);
+        }
+      }
+    }
+    @media (min-width: @screen-md-min) {
+      td {
+        &.hash, &.foundBy {
+          .trunc(200px);
+        }
+      }
+    }
+    @media (min-width: @screen-lg-min) {
+      td {
+        &.hash, &.foundBy {
+          .trunc(350px);
+        }
+      }
+    }
+    @media (min-width: 1860px) {
+      td {
+        &.hash, &.foundBy {
+          .trunc(500px);
+        }
+      }
+    }
+  }
+
+}

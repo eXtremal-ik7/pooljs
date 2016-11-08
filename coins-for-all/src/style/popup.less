@@ -1,0 +1,153 @@
+@popup-z-index: 100;
+
+.popup {
+	height: 100%;
+	left: 0;
+	position: fixed;
+	z-index: @popup-z-index;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	background: url('../i/popup.png');
+	&:before, .ie-before {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+}
+
+form.dialog {
+	background: #fff;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	z-index: @popup-z-index + 1;
+	.box-shadow(0px 1px 3px 2px rgba(220,220,220,.9));
+	text-align: left;
+	min-width: 400px;
+	max-width: 800px;
+	@media (min-width: 300px) {
+		min-width: 100px;
+		max-width: 200px;
+	}
+	@media (min-width: 500px) {
+		min-width: 200px;
+		max-width: 400px;
+	}
+	@media (min-width: 700px) {
+		min-width: 400px;
+		max-width: 600px;
+	}
+	@media (min-width: 900px) {
+		min-width: 400px;
+		max-width: 800px;
+	}
+
+	header {
+		background-color: #f0f6fb;
+		margin-top: 10px;
+		padding: 6px 18px;
+		position: relative;
+		h1 {
+			color: @gray-light;
+			font-size: @font-size-base;
+			font-weight: bold;
+			line-height: 16px;
+			margin: 0 20px 0 0;
+			em {
+				color: @brand-primary;
+				font-style: normal;
+			}
+		}
+		h2 {
+			line-height: 16px;
+		}
+		.close {
+			color: #94aebf;
+			opacity: 1;
+			font-size: 20px;
+			font-weight: bold;
+			position: absolute;
+			text-decoration: none;
+			right: 18px;
+			top: 50%;
+			background: transparent;
+			padding: 0;
+			border: none;
+			margin-top: -10px;
+			&:hover{
+				opacity: 0.8;
+			}
+		}
+	}
+	.content {
+		max-height: 600px;
+		overflow: auto;
+		padding: 8px 18px 0 18px;
+		@media (min-height: 100px) {
+			max-height: 50px;
+		}
+		@media (min-height: 300px) {
+			max-height: 200px;
+		}
+		@media (min-height: 500px) {
+			max-height: 400px;
+		}
+		@media (min-height: 700px) {
+			max-height: 600px;
+		}
+		label {
+			color: @gray-light;
+			font-size: @font-size-small;
+			margin-bottom: 0;
+		}
+		textarea, input, select {
+			padding: 0 4px;
+			border-radius: 0;
+			.box-sizing(border-box);
+			width: 100%;
+		}
+		input {
+			height: 25px;
+			line-height: normal;
+		}
+		select {
+			height: 25px;
+			line-height: normal;
+			padding: 0 0 0 4px;
+		}
+		a, a:visited, a:hover {
+			color: @link-color;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	footer {
+		border-top: 1px solid @table-border-color;
+		color: @table-border-color;
+		font: italic @font-size-small arial;
+		padding: 5px 18px 5px 8px;
+		text-align: right;
+		button {
+			font-size: @font-size-small;
+		}
+	}
+}
+
+// Animation
+.popup {
+	form.dialog {
+		opacity: .4;
+		.scale(0.2);
+		.transition(0.3s ease-out);
+	}
+	&.open {
+		form.dialog {
+			opacity: 1;
+			.scale(1);
+		}
+	}
+}
